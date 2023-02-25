@@ -26,24 +26,29 @@ streamlit.dataframe(fruits_to_show)
 
 #New Section to display fruityvice api response
 streamlit.header('Fruityvale Fruit Advice')
+try:
 
+  fruityvice_normalized = pd.DataFrame()
+  fruit_choices = streamlit.text_input('what fruit(s) would you like information about?  Separate fruits with a comma', 'Kiwi')
+  if not fruit_choice:
+    streamlit.error("please select a fruit to get information.")
+  else:
+    fruit_choices = fruit_choices.split(',')
 
-fruityvice_normalized = pd.DataFrame()
-fruit_choices = streamlit.text_input('what fruit(s) would you like information about?  Separate fruits with a comma', 'Kiwi')
-fruit_choices = fruit_choices.split(',')
+    for fruit in fruit_choices:
+      fruit = fruit.strip()
+      fruityvice_response = (requests.get(f"https://fruityvice.com/api/fruit/{fruit}"))
+      time.sleep(1)
+    # streamlit.text(fruityvice_response.json())
+    # normalize json
+      fruityvice_normalized = pd.concat([fruityvice_normalized, pd.json_normalize(fruityvice_response.json())])
+    # output as table
+    cols = ['id','name'] + [col for col in fruityvice_normalized.columns if col not in ['id','name']]
+    fruityvice_normalized = fruityvice_normalized[cols]
+    streamlit.dataframe(fruityvice_normalized)
 
-for fruit in fruit_choices:
-  fruit = fruit.strip()
-  fruityvice_response = (requests.get(f"https://fruityvice.com/api/fruit/{fruit}"))
-  time.sleep(1)
-# streamlit.text(fruityvice_response.json())
-# normalize json
-  fruityvice_normalized = pd.concat([fruityvice_normalized, pd.json_normalize(fruityvice_response.json())])
-# output as table
-cols = ['id','name'] + [col for col in fruityvice_normalized.columns if col not in ['id','name']]
-fruityvice_normalized = fruityvice_normalized[cols]
-streamlit.dataframe(fruityvice_normalized)
-
+except URLError as e:
+  streamlit.error()
 streamlit.stop()
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
