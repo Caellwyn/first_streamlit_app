@@ -79,5 +79,5 @@ if streamlit.button('Add a Fruit to the List'):
     else:
         streamlit.text('That fruit is already in the database!')
         
-current_fruit = get_fruit_load_list()
-streamlit.dataframe(current_fruit)
+    current_fruit = get_fruit_load_list()
+    streamlit.dataframe(current_fruit)
