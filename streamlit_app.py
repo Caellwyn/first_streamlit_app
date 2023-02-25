@@ -26,11 +26,11 @@ streamlit.header('Fruityvale Fruit Advice')
 
 import requests
 fruityvice_response = []
+fruityvice_normalized = pd.DataFrame()
 for fruit in fruits_selected:
   fruityvice_response.append(requests.get(f"https://fruityvice.com/api/fruit/{fruit}"))
 # streamlit.text(fruityvice_response.json())
-
 # normalize json
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+  fruityvice_normalized = pd.concat([fruityvice_normalized, pd.json_normalize(fruityvice_response.json())])
 # output as table
 streamlit.dataframe(fruityvice_normalized)
