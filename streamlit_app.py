@@ -26,6 +26,7 @@ streamlit.dataframe(fruits_to_show)
 
 def get_fruityvice_data(fruit_choices):
     fruit_choices = fruit_choices.split(',')
+    fruityvice_normalized = pd.DataFrame()
 
     for fruit in fruit_choices:
       fruit = fruit.strip()
@@ -34,15 +35,13 @@ def get_fruityvice_data(fruit_choices):
     # streamlit.text(fruityvice_response.json())
     # normalize json
       fruityvice_normalized = pd.concat([fruityvice_normalized, pd.json_normalize(fruityvice_response.json())])
-    # output as table
+    # return as table
     cols = ['id','name'] + [col for col in fruityvice_normalized.columns if col not in ['id','name']]
     return fruityvice_normalized[cols]
 
   #New Section to display fruityvice api response
 streamlit.header('Fruityvale Fruit Advice')
 try:
-
-  fruityvice_normalized = pd.DataFrame()
   fruit_choices = streamlit.text_input('what fruit(s) would you like information about?  Separate fruits with a comma.')
   if not fruit_choices:
     streamlit.error("please select a fruit to get information.")
