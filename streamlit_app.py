@@ -26,7 +26,9 @@ streamlit.header('Fruityvale Fruit Advice')
 
 import requests, time
 fruityvice_normalized = pd.DataFrame()
-for fruit in fruits_selected:
+fruit_choices = streamlit.text_input('what fruit(s) would you like information about?  Separate fruits with a comma', 'Kiwi')
+fruit_choices = fruit_choices.split(',').strip()
+for fruit in fruit_choices:
   fruityvice_response = (requests.get(f"https://fruityvice.com/api/fruit/{fruit}"))
   time.sleep(1)
 # streamlit.text(fruityvice_response.json())
