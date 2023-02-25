@@ -24,15 +24,7 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the table on the page
 streamlit.dataframe(fruits_to_show)
 
-#New Section to display fruityvice api response
-streamlit.header('Fruityvale Fruit Advice')
-try:
-
-  fruityvice_normalized = pd.DataFrame()
-  fruit_choices = streamlit.text_input('what fruit(s) would you like information about?  Separate fruits with a comma.')
-  if not fruit_choices:
-    streamlit.error("please select a fruit to get information.")
-  else:
+def get_fruityvice_data(this_fruit_choice):
     fruit_choices = fruit_choices.split(',')
 
     for fruit in fruit_choices:
@@ -44,7 +36,18 @@ try:
       fruityvice_normalized = pd.concat([fruityvice_normalized, pd.json_normalize(fruityvice_response.json())])
     # output as table
     cols = ['id','name'] + [col for col in fruityvice_normalized.columns if col not in ['id','name']]
-    fruityvice_normalized = fruityvice_normalized[cols]
+    return fruityvice_normalized[cols]
+
+  #New Section to display fruityvice api response
+streamlit.header('Fruityvale Fruit Advice')
+try:
+
+  fruityvice_normalized = pd.DataFrame()
+  fruit_choices = streamlit.text_input('what fruit(s) would you like information about?  Separate fruits with a comma.')
+  if not fruit_choices:
+    streamlit.error("please select a fruit to get information.")
+  else:
+    fruityvice_normalized = get_fruityvice_data(fruit_choices)
     streamlit.dataframe(fruityvice_normalized)
 
 except URLError as e:
