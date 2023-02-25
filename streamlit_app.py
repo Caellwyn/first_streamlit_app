@@ -29,7 +29,7 @@ streamlit.header('Fruityvale Fruit Advice')
 try:
 
   fruityvice_normalized = pd.DataFrame()
-  fruit_choices = streamlit.text_input('what fruit(s) would you like information about?  Separate fruits with a comma', 'Kiwi')
+  fruit_choices = streamlit.text_input('what fruit(s) would you like information about?  Separate fruits with a comma.')
   if not fruit_choices:
     streamlit.error("please select a fruit to get information.")
   else:
