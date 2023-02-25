@@ -28,7 +28,7 @@ import requests, time
 fruityvice_normalized = pd.DataFrame()
 for fruit in fruits_selected:
   fruityvice_response = (requests.get(f"https://fruityvice.com/api/fruit/{fruit}"))
-  time.sleep(5)
+  time.sleep(1)
 # streamlit.text(fruityvice_response.json())
 # normalize json
   fruityvice_normalized = pd.concat([fruityvice_normalized, pd.json_normalize(fruityvice_response.json())])
