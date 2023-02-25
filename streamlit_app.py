@@ -27,7 +27,7 @@ streamlit.header('Fruityvale Fruit Advice')
 import requests
 fruityvice_response = []
 for fruit in fruits_selected:
-fruityvice_response.append(requests.get(f"https://fruityvice.com/api/fruit/{fruit}"))
+  fruityvice_response.append(requests.get(f"https://fruityvice.com/api/fruit/{fruit}"))
 # streamlit.text(fruityvice_response.json())
 
 # normalize json
