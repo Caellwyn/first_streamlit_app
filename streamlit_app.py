@@ -24,10 +24,11 @@ streamlit.dataframe(fruits_to_show)
 #New Section to display fruityvice api response
 streamlit.header('Fruityvale Fruit Advice')
 
-import requests
+import requests, time
 fruityvice_normalized = pd.DataFrame()
 for fruit in fruits_selected:
   fruityvice_response = (requests.get(f"https://fruityvice.com/api/fruit/{fruit}"))
+  time.sleep(5)
 # streamlit.text(fruityvice_response.json())
 # normalize json
   fruityvice_normalized = pd.concat([fruityvice_normalized, pd.json_normalize(fruityvice_response.json())])
