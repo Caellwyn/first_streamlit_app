@@ -76,4 +76,5 @@ if streamlit.button('Add a Fruit to the List'):
     if new_fruit not in current_fruit:
         thanks = insert_row_snowflake(new_fruit)
         streamlit.text(thanks)
-    else streamlit.text('That fruit is already in the database!')
+    else:
+        streamlit.text('That fruit is already in the database!')
