@@ -37,5 +37,6 @@ for fruit in fruit_choices:
 # normalize json
   fruityvice_normalized = pd.concat([fruityvice_normalized, pd.json_normalize(fruityvice_response.json())])
 # output as table
-cols = ['id','name'] + [col for col in fruityvice_normlized.columns if col not in ['id','name']]
+cols = ['id','name'] + [col for col in fruityvice_normalized.columns if col not in ['id','name']]
+fruityvice_normalized = fruityvice_normalized[cols]
 streamlit.dataframe(fruityvice_normalized)
