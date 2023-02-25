@@ -24,7 +24,7 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the table on the page
 streamlit.dataframe(fruits_to_show)
 
-def get_fruityvice_data(this_fruit_choice):
+def get_fruityvice_data(fruit_choices):
     fruit_choices = fruit_choices.split(',')
 
     for fruit in fruit_choices:
