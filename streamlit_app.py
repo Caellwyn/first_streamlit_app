@@ -51,8 +51,9 @@ my_data_row = my_cur.fetchall()
 streamlit.header("The fruit load list contains:")
 streamlit.dataframe(my_data_row)
 
-new_fruit = streamlit.text_input("Would you like to add a fruit?", "jackfruit")
+new_fruit = streamlit.text_input("Would you like to add a fruit?")
 
 if new_fruit:
   my_cur.execute(f"insert into pc_rivery_db.public.fruit_load_list values ('{new_fruit}')")
   streamlit.text(f'Thanks for adding {new_fruit}!')
+  del new_fruit
