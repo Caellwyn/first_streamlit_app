@@ -1,6 +1,8 @@
 import streamlit
 import pandas as pd
-
+import requests, time
+import snowflake.connector
+from urllib.error import URLError
 
 streamlit.title('My Parents New Healthy Diner')
 
@@ -25,7 +27,7 @@ streamlit.dataframe(fruits_to_show)
 #New Section to display fruityvice api response
 streamlit.header('Fruityvale Fruit Advice')
 
-import requests, time
+
 fruityvice_normalized = pd.DataFrame()
 fruit_choices = streamlit.text_input('what fruit(s) would you like information about?  Separate fruits with a comma', 'Kiwi')
 fruit_choices = fruit_choices.split(',')
@@ -42,7 +44,7 @@ cols = ['id','name'] + [col for col in fruityvice_normalized.columns if col not 
 fruityvice_normalized = fruityvice_normalized[cols]
 streamlit.dataframe(fruityvice_normalized)
 
-import snowflake.connector
+streamlit.stop()
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
