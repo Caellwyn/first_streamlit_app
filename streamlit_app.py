@@ -30,7 +30,7 @@ try:
 
   fruityvice_normalized = pd.DataFrame()
   fruit_choices = streamlit.text_input('what fruit(s) would you like information about?  Separate fruits with a comma', 'Kiwi')
-  if not fruit_choice:
+  if not fruit_choices:
     streamlit.error("please select a fruit to get information.")
   else:
     fruit_choices = fruit_choices.split(',')
