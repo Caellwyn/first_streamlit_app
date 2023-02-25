@@ -54,5 +54,5 @@ streamlit.dataframe(my_data_row)
 new_fruit = streamlit.text_input("Would you like to add a fruit?", "jackfruit")
 
 if new_fruit:
-  my_cur.execute('insert into pc_rivery.public.fruit_load_list values (new_fruit)
+  my_cur.execute(f'insert into pc_rivery.public.fruit_load_list values ({new_fruit})')
   streamlit.text(f'Thanks for adding {new_fruit}!')
